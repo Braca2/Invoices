@@ -30,6 +30,16 @@ namespace Invoices
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddCors(options =>
+			{
+				options.AddDefaultPolicy(
+						builder =>
+						{
+							builder.WithOrigins("http://localhost:8080",
+								"http://127.0.0.1:8080");
+						});
+			});
+
 			services.AddControllers();
 			services.AddDbContext<InvoiceContext>(clients => clients.UseSqlServer(Configuration.GetConnectionString("AppConnection")));
 
@@ -48,9 +58,14 @@ namespace Invoices
 				app.UseDeveloperExceptionPage();
 			}
 
+			app.UseDefaultFiles();
+			app.UseStaticFiles();
+
 			app.UseHttpsRedirection();
 
 			app.UseRouting();
+
+			app.UseCors();
 
 			app.UseAuthorization();
 
