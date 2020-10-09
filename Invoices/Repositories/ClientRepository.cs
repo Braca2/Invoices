@@ -2,9 +2,7 @@
 using Invoices.Interfaces;
 using Invoices.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Invoices.Repositories
@@ -20,12 +18,16 @@ namespace Invoices.Repositories
 
 		public async Task<IEnumerable<Client>> Get()
 		{
-			return await context.Clients.ToListAsync();
+			return await context.Clients
+				.Include(c => c.Address)
+				.ToListAsync();
 		}
 
 		public async Task<Client> Get(int id)
 		{
-			return await context.Clients.FindAsync(id);
+			return await context.Clients
+				.Include(c => c.Address)
+				.FirstOrDefaultAsync(c => c.Id == id);
 		}
 
 		public async Task Create(Client client)
