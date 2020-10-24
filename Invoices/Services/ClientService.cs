@@ -1,8 +1,6 @@
 ﻿using Invoices.Interfaces;
 using Invoices.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Invoices.Services
@@ -28,11 +26,16 @@ namespace Invoices.Services
 
 		public async Task Create(Client client)
 		{
+			//Check if already exists
+			//if has the same First Name and Last Name or Company, ask if it is the same client
+			//should I return OK or something?
 			await clientRepository.Create(client);
 		}
 
 		public async Task Update(int id, Client client)
 		{
+			//check if exists
+			//should I return OK or something?
 			await clientRepository.Update(id, client);
 		}
 
