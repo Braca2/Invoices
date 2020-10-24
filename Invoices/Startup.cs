@@ -36,7 +36,6 @@ namespace Invoices
 			services.AddControllers();
 			services.AddDbContext<InvoiceContext>(clients => clients.UseSqlServer(Configuration.GetConnectionString("AppConnection")));
 
-			//services.AddSingleton<IPlaceInfoService, PlaceInfoService>();
 			services.AddSwaggerGen(options =>
 			{
 				options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
